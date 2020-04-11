@@ -1,22 +1,94 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://ming132.github.io</id>
-    <title>自闭咕的小窝</title>
-    <updated>2020-04-11T14:36:44.266Z</updated>
-    <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://ming132.github.io"/>
-    <link rel="self" href="https://ming132.github.io/atom.xml"/>
-    <subtitle>被断的平，上不去的天，自闭的弟弟玩莫问</subtitle>
-    <logo>https://ming132.github.io/images/avatar.png</logo>
-    <icon>https://ming132.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2020, 自闭咕的小窝</rights>
-    <entry>
-        <title type="html"><![CDATA[随笔：博弈论思想实现简单的对抗搜索井字棋]]></title>
-        <id>https://ming132.github.io/post/sui-bi-bo-yi-lun-si-xiang-shi-xian-jian-dan-de-dui-kang-sou-suo-jing-zi-qi/</id>
-        <link href="https://ming132.github.io/post/sui-bi-bo-yi-lun-si-xiang-shi-xian-jian-dan-de-dui-kang-sou-suo-jing-zi-qi/">
-        </link>
-        <updated>2020-04-11T14:33:31.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="1-时事介绍">1. 时事介绍</h1>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>随笔：博弈论思想实现简单的对抗搜索井字棋 | 自闭咕的小窝</title>
+<meta name="description" content="被断的平，上不去的天，自闭的弟弟玩莫问">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://ming132.github.io/favicon.ico?v=1586615780095">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://ming132.github.io/styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://ming132.github.io">自闭咕的小窝</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="https://ming132.github.io" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://ming132.github.io/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://ming132.github.io/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="https://ming132.github.io/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>随笔：博弈论思想实现简单的对抗搜索井字棋</h1>
+            <p class="article-meta">
+              2020-04-11
+              
+            </p>
+            
+            <div class="post-content">
+              <h1 id="1-时事介绍">1. 时事介绍</h1>
 <p>因为我本身是打算法竞赛的，博弈论也是acm的考点之一，不过考点比较集中，一般都是考sg函数和博弈树。正好之前没有学习过博弈树，就趁着这次机会学习一下最基础的博弈树吧。因为是最简的基础了解，所以并没有去看什么复杂的算法，仅仅学习了αβ剪枝，利用的博弈论原理是最大最小原理，用c++语言实现了一个不符合任何工程标准的ai井字棋（本来是想写五子棋的，写的时候发现复杂度过高，需要加入其它的技巧和优化比如A*搜索才可以做到，为了方便就选了一个变化较少的井字棋，毕竟最高只有9的阶乘，这样我就考可以虑很多步，也就是所谓的下一步想很多步，五子棋的难点主要在于估价函数太难写，因为主要是利用博弈论原理，体现出来就行了），hh，源码会放到最后面，如果老师有兴趣可以去跟他下一下，实测最好只能下到平局，无论是否先手都是如此，源码的思路和注释（很简单的那种，思路会放在正文，思路会比较详细）会放在后面讲！</p>
 <h1 id="-more-2-研究问题"><!-- more -->2. 研究问题</h1>
 <p>就是如何利用博弈论的原理来实现一个ai的井字棋，井字棋想必都听过，即在一个3*3的棋盘上落子，如果有三子在同一直线or对角线上，即判落子之人赢，当全部格子被占满也没有人获胜时，为平局。</p>
@@ -73,38 +145,105 @@ D的点已经扫完了啊，没了啊，那就更新回溯到H，把H的α也给
 <p>没啥结论。。。这咋写，就是把上述思想用代码表达了出来，做出来了这么一个东西，代码会后续和word一起打包发给老师了，老师有兴趣大可随便找个ide和电脑下一下，至于界面交互什么的，实在捡漏，见效（实在不擅长写实用性的东西，平时打比赛的小代码写多了）</p>
 <h1 id="-more-6启示"><!-- more -->6启示</h1>
 <p>ai井字棋？是不是听起来还挺高大上的，前段时间和队友交流他们说他们上的人工智能选修课就选的这个，叫法可高大上多了，叫对抗搜索，其实一些很高大上的东西都是一些很简单的原理的构成的，多看多想多总结，虚心接受前人的智慧，相信就能像老师所说的那样，成为人生赢家，一定会的</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://ming132.github.io/post/hello-gridea/</id>
-        <link href="https://ming132.github.io/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="http://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
-]]></content>
-    </entry>
-</feed>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://ming132.github.io/post/hello-gridea/">
+                <h3 class="post-title">
+                  Hello Gridea
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://ming132.github.io/images/avatar.png?v=1586615780095" class="no-responsive avatar">
+    <div class="text-muted">被断的平，上不去的天，自闭的弟弟玩莫问</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://ming132.github.io/post/sui-bi-bo-yi-lun-si-xiang-shi-xian-jian-dan-de-dui-kang-sou-suo-jing-zi-qi/">随笔：博弈论思想实现简单的对抗搜索井字棋</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ming132.github.io/post/about/">关于</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://ming132.github.io/post/hello-gridea/">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://ming132.github.io/tag/C2nmsSkSP/" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+    Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://ming132.github.io/atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
