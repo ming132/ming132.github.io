@@ -7,7 +7,7 @@
 <meta name="description" content="被断的平，上不去的天，自闭的弟弟玩莫问">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="shortcut icon" href="https://ming132.github.io/favicon.ico?v=1586616063678">
+<link rel="shortcut icon" href="https://ming132.github.io/favicon.ico?v=1586619620965">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
@@ -136,7 +136,10 @@ int val()
 				{
 					cnt+=1000;
 				}
-				else
+				if(safe(i-1,j)&amp;&amp;mem[i-1][j]==0)
+				{
+					cnt+=1000;
+				}
 				cnt+=10;
 			}
 			if(mem[i][j]==-1&amp;&amp;mem[i][j+1]==-1)
@@ -145,7 +148,10 @@ int val()
 				{
 					cnt+=1000;
 				}
-				else
+				if(safe(i,j-1)&amp;&amp;mem[i][j-1]==0)
+				{
+					cnt+=1000;
+				}
 				cnt+=10;
 			}
 			if(mem[i][j]==1&amp;&amp;mem[i+1][j]==1)
@@ -154,7 +160,10 @@ int val()
 				{
 					cnt-=1000;
 				}
-				else
+				if(safe(i-1,j)&amp;&amp;mem[i-1][j]==0)
+				{
+					cnt-=1000;
+				}
 				cnt-=10;
 			}
 			if(mem[i][j]==1&amp;&amp;mem[i][j+1]==1)
@@ -163,7 +172,10 @@ int val()
 				{
 					cnt-=1000;
 				}
-				else
+				if(safe(i,j-1)&amp;&amp;mem[i-1][j-1]==0)
+				{
+					cnt-=1000;
+				}
 				cnt-=10;
 			}
 			if(mem[i][j]==-1&amp;&amp;mem[i+1][j+1]==-1)
@@ -172,7 +184,10 @@ int val()
 				{
 					cnt+=1000;
 				}
-				else
+				if(safe(i-1,j-1)&amp;&amp;mem[i-1][j-1]==0)
+				{
+					cnt+=1000;
+				}
 				cnt+=10;
 			}
 			if(mem[i][j]==1&amp;&amp;mem[i+1][j+1]==1)
@@ -181,7 +196,10 @@ int val()
 				{
 					cnt-=1000;
 				}
-				else
+				if(safe(i-1,j-1)&amp;&amp;mem[i-1][j-1]==0)
+				{
+					cnt-=1000;
+				}
 				cnt-=10;
 			}
 			if(mem[i][j]==-1&amp;&amp;mem[i-1][j+1]==-1)
@@ -190,17 +208,23 @@ int val()
 				{
 					cnt+=1000;
 				}
-				else
+                if(safe(i+1,j-1)&amp;&amp;mem[i+1][j-1]==0)
+				{
+					cnt+=1000;
+				}
 				cnt+=10;
 			}
 			if(mem[i][j]==1&amp;&amp;mem[i-1][j+1]==1)
 			{
 				if(safe(i-2,j+2)&amp;&amp;mem[i-2][j+2]==0)
 				{
-					cnt+=1000;
+					cnt-=1000;
 				}
-				else
-				cnt+=10;
+				if(safe(i+1,j-1)&amp;&amp;mem[i+1][j-1]==0)
+				{
+					cnt-=1000;
+				}
+				cnt-=10;
 			}
 		}
 	}
@@ -244,7 +268,7 @@ int win()
 }
 int al_be(int h,int player,int a,int b)
 {
-	if(h==15||win()!=0){
+	if(h==9||win()!=0){
 	if(win()==1)
 	{
 		return -100000;
@@ -256,7 +280,7 @@ int al_be(int h,int player,int a,int b)
 		return val();
 	}
 	if(empty_()){
-	return 0;
+	return -500;
     }
 //	cout&lt;&lt;player&lt;&lt;endl;
 	if(player==1)
@@ -275,6 +299,7 @@ int al_be(int h,int player,int a,int b)
 					if(ans&gt;a)
 					{
 						a=ans;
+						if(h==0)
 						x=i,y=j;
 					}
 					if(a&gt;=b)
@@ -318,7 +343,7 @@ void decide()
 {
 	cout&lt;&lt;&quot;让我想想该怎么下\n&quot;;
 	cout&lt;&lt;&quot;想好了！\n&quot;;
-	al_be(0,1,-INF,INF);
+	al_be(0,1,-100000,100000);
 	cout&lt;&lt;&quot;我下在: &quot;&lt;&lt;x&lt;&lt;&quot; &quot;&lt;&lt;y&lt;&lt;&quot;\n&quot;;
 	mem[x][y]=-1;
 }
@@ -412,7 +437,7 @@ int main()
 
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
-    <img src="https://ming132.github.io/images/avatar.png?v=1586616063678" class="no-responsive avatar">
+    <img src="https://ming132.github.io/images/avatar.png?v=1586619620965" class="no-responsive avatar">
     <div class="text-muted">被断的平，上不去的天，自闭的弟弟玩莫问</div>
     <div class="social-container">
       
